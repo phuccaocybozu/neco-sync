@@ -1,2 +1,4 @@
-#### To sync source to neco pod you must to change setting mode first. After that, you need to change config in ```config/config.sh``` file.
+#### To sync source to neco pod you must:
+1. Changing setting mode first. 
+2. Changing config in ```config/config.sh``` file.
 #### Run ```./src/sync.sh``` to sync source
