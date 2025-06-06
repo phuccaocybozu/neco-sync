@@ -59,11 +59,45 @@ exec_pod() {
 }
 
 # Main
-unset_proxies
-login_teleport
-login_kube
-list_pods
-# select_pod
-# check_pod_exists
-# sync_files
-# exec_pod
+# run ./src/sync.sh -l to get list pods
+if [ "$1" == "-l" ]; then
+    unset_proxies
+    login_teleport
+    login_kube
+    list_pods
+    exit 0
+fi
+
+# run ./src/sync.sh -ex to execute command in pod
+if [ "$1" == "-ex" ]; then
+    unset_proxies
+    login_teleport
+    login_kube
+    list_pods
+    select_pod
+    check_pod_exists
+    exec_pod
+    exit 0
+fi
+
+# run ./src/sync.sh -s to sync files to pod
+if [ "$1" == "-s" ]; then
+    unset_proxies
+    login_teleport
+    login_kube
+    list_pods
+    select_pod
+    check_pod_exists
+    sync_files
+    exit 0
+fi
+
+# not matching with -l or -s or -ex will show error message
+echo "-------------------------------------------------------"
+echo "Usage: $0 [-l | -s | -ex]"
+echo "  -l   List pods in the namespace"
+echo "  -s   Sync files to the selected pod"
+echo "  -ex  Execute command in the selected pod"
+echo "Please provide a valid option."
+exit 1
+# End of script
