@@ -52,11 +52,18 @@ sync_files() {
     kubectl cp -n $NAME_SPACE -c garoon-ap $LOCAL_REPOSITORY/source/$FOLDER_FILES_TO_SYNC $POD:/usr/local/garoon/$FOLDER_FILES_TO_SYNC
 }
 
+exec_pod() {
+    echo "-------------------------------------------------------"
+    echo "Executing command in pod $POD"
+    kubectl exec -it -n $NAME_SPACE -c garoon-ap $POD -- /bin/bash
+}
+
 # Main
 unset_proxies
 login_teleport
 login_kube
 list_pods
-select_pod
-check_pod_exists
-sync_files
+# select_pod
+# check_pod_exists
+# sync_files
+# exec_pod
